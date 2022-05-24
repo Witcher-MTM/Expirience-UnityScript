@@ -3,7 +3,10 @@
 
 Expirience.Expirience exp = new Expirience.Expirience();
 
-exp.Desirialize();
-
+exp.GetExp(999999999);
+while (true)
+{
+    Console.WriteLine(1);
+}
 Console.WriteLine();
 

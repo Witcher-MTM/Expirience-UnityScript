@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using System.M
 
 
 namespace Expirience
@@ -13,7 +12,6 @@ namespace Expirience
     {
         public int Level { get; private set; }
         public int LevelPoint { get; private set; }
-
         public int ExpirienceForNextLevel { get; private set; }
         public int CurrentExpirience { get; private set; }
         public int NewExpirience { get; private set; }
@@ -52,21 +50,23 @@ namespace Expirience
             ExpirienceForNextLevel = exp.ExpirienceForNextLevel;
             ExtraExpirience = exp.ExtraExpirience;
             NewExpirience = exp.NewExpirience;
-
+            FileName = "Expirience.json";
         }
 
         public void GetExp(int expirience)
         {
             CurrentExpirience += expirience;
-            if (CurrentExpirience >= ExpirienceForNextLevel)
+            Task.Factory.StartNew(() =>
             {
-
-                UpLevel();
-
-            }
+                while (CurrentExpirience >= ExpirienceForNextLevel)
+                {
+                    UpLevel();
+                    Console.WriteLine($"------------------------------LEVEL-{Level}" );
+                }
+            });
         }
 
-        public void UpLevel()
+        private void UpLevel()
         {
             ExtraExpirience = CurrentExpirience - ExpirienceForNextLevel;
             CurrentExpirience = ExtraExpirience;
@@ -75,8 +75,8 @@ namespace Expirience
             LevelPoint += 1;
             HpFactor += 10 * Level;
             MpFactor += 15 * Level;
-
-            ExpirienceForNextLevel = ExpirienceForNextLevel * (int)Math.Pow(1.1, Level);
+            ExpirienceForNextLevel = ExpirienceForNextLevel + 150 * Level;
+            //ExpirienceForNextLevel = ExpirienceForNextLevel * Math.Pow(1.1, Level);
 
 
         }
