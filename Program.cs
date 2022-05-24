@@ -1,12 +1,12 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 
-Expirience.Expirience exp = new Expirience.Expirience();
+using Expirience;
+using System.Text.Json;
+string json = File.ReadAllText("Expirience.json");
+Expirience.Expirience exp = new Expirience.Expirience(JsonSerializer.Deserialize<Expirience.Expirience>(json));
 
-exp.GetExp(999999999);
-while (true)
-{
-    Console.WriteLine(1);
-}
+
+Console.WriteLine(exp.Level);
 Console.WriteLine();
 

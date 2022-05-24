@@ -18,7 +18,7 @@ namespace Expirience
         public int ExtraExpirience { get; private set; }
         public int HpFactor { get; private set; }
         public int MpFactor { get; private set; }
-        private string FileName;
+        public string FileName { get; private set; }
 
         public string jsonExpirience { get; private set; }
 
@@ -50,9 +50,12 @@ namespace Expirience
             ExpirienceForNextLevel = exp.ExpirienceForNextLevel;
             ExtraExpirience = exp.ExtraExpirience;
             NewExpirience = exp.NewExpirience;
-            FileName = "Expirience.json";
+            FileName = exp.FileName;
         }
-
+        public Expirience(int Level, int LevelPoint, int ExpirienceForNextLevel, int CurrentExpirience, int NewExpirience, int ExtraExpirience, int HpFactor, int MpFactor, string FileName,string jsonExpirience)
+        {
+            Console.WriteLine(Level);
+        }
         public void GetExp(int expirience)
         {
             CurrentExpirience += expirience;
@@ -64,6 +67,7 @@ namespace Expirience
                     Console.WriteLine($"------------------------------LEVEL-{Level}" );
                 }
             });
+            
         }
 
         private void UpLevel()
@@ -77,8 +81,10 @@ namespace Expirience
             MpFactor += 15 * Level;
             ExpirienceForNextLevel = ExpirienceForNextLevel + 150 * Level;
             //ExpirienceForNextLevel = ExpirienceForNextLevel * Math.Pow(1.1, Level);
-
-
+        }
+        public override string ToString()
+        {
+            return $"{Level},{ExpirienceForNextLevel}";
         }
     }
 }
